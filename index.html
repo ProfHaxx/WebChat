@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ProfHaxx Chat</title>
+        <script src="/jquery/dist/jquery.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+    </head>
+
+    <body>
+        <div class="nav">
+            <button class="navbtn">Home</button>
+            <button class="dropdown">Preferences</button>
+            <div class="dropdown-content">
+                <button class="dropbtn">Profile</button>
+                <button class="dropbtn">Background</button>
+            </div>
+        </div>
+
+        <div class="header">
+            Chat
+        </div>
+
+        <div id="future"></div>
+
+        <form id="form" id="chat_form">
+            <input id="chat_input" type="text">
+            <input type="submit" value="Send">
+        </form>
+
+        <script src="client.js"></script>
+    </body>
+</html>
