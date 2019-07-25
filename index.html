@@ -5,31 +5,25 @@
         <title>ProfHaxx Chat</title>
         <script src="/jquery/dist/jquery.js"></script>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="./client.js"></script>
         <link rel="stylesheet" type="text/css" href="./style.css">
         <!-- TODO Add icons -->
         <link res="icon" href="./img/chat.svg">
     </head>
 
-    <body onload="navigate()">
-        <div class="nav">
-            <button class="navbtn" onclick="navigate()">Home</button>
+    <body onload="navigate()" id="body">
+        <div class="nav" id="nav" id="dark_elem">
+            <button class="navbtn" id="light_elem" onclick="navigate()">Home</button>
             <div class="dropdown">
-                <button class="dropbtn">Preferences</button>
+                <button class="dropbtn" id="light_elem">Preferences</button>
                 <div class="dropdown-content">
-                    <button class="dropdownbtn" onclick="navigate(1)">Profile</button>
-                    <button class="dropdownbtn" onclick="navigate(2)">Theme</button>
+                    <button class="dropdownbtn" onclick="navigate(1)" id="light_elem">Profile</button>
+                    <button class="dropdownbtn" onclick="navigate(2)" id="light_elem">Theme</button>
                 </div>
             </div>
         </div>
 
         <div class="header" id="header"></div>
-        <div id="future"></div>
 
-        <form id="form" id="chat_form" class="chat_form">
-            <input class="chat_input" id="chat_input" type="text" placeholder="[Your message]">
-            <input class="sendbtn" type="submit" value="Send">
-        </form>
 
         <div class="theme_select" id="theme_select">
             <p>Enter 3 comma separated numbers!</p><br>
@@ -42,5 +36,15 @@
             <input class="font_box" id="font_box" type="text" placeholder="Text Color"><br><br>
             <button class="theme_select_btn" onclick="selectTheme()" value="Send">Apply</button>
         </div>
+
+        <div id="future" class="future"></div>
+
+        <form id="form" id="chat_form" class="chat_form">
+            <input class="chat_input" id="dark_elem" id="chat_input" type="text" placeholder="[Your message]">
+            <input class="sendbtn" id="light_elem" type="submit" value="Send">
+        </form>
+
+        <script src="./client.js"></script>
+
     </body>
 </html>
