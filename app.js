@@ -5,16 +5,22 @@ var io = require('socket.io')(server);
 
 //Initialzing used directories
 app.use(express.static(__dirname + '/node_modules'));
-app.use("/", express.static(__dirname + '/'));
+//app.use("/", express.static(__dirname + '/'));
+//app.use("/img/", express.static(__dirname + '/img'));
 
 //Fetching HTML
 app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/index.html');
 });
 
-//Fetching Stylesheet
+//Fetching Stylesheets
 app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/style.css');
+});
+
+//Fetching Icon
+app.get('/', function(req, res,next) {
+    res.sendFile(__dirname + '/img/chat.ico');
 });
 
 io.on('connection', function(client) {

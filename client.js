@@ -1,6 +1,5 @@
 var socket = io.connect();
 socket.on('connect', function (data) {
-    console.log(data);
     socket.emit('join', 'Connection to Client established!');
 });
 
@@ -26,15 +25,16 @@ $('form').submit(function (e) {
 socket.emit('messages', getCookie("username") + " " + "joined the chat!");
 
 function navigate(loc) {
+    var headerText = $("#header").html();
     switch(loc) {
         case undefined: //Home
-            document.getElementById("header").innerHTML = "Chat";
+            headerText = "Chat";
             document.getElementById("future").style.display = "block";
             document.getElementById("form").style.display = "inline";
             document.getElementById("select_container").style.display = "none";
             break;
         case 1: //Profile
-            document.getElementById("header").innerHTML = "Profile";
+            headerText = "Profile";
             document.getElementById("future").style.display = "none";
             document.getElementById("form").style.display = "none";
             document.getElementById("select_container").style.display = "block";
@@ -49,7 +49,7 @@ function navigate(loc) {
             document.getElementById("box_2").setAttribute("placeholder", "Displayname");
             break;
         case 2: //Theme
-            document.getElementById("header").innerHTML = "Theme";
+            headerText = "Theme";
             document.getElementById("future").style.display = "none";
             document.getElementById("form").style.display = "none";
             document.getElementById("select_container").style.display = "block";
@@ -129,12 +129,14 @@ function selectTheme() {
     }
 
     clearBoxes();
+    navigate();
 }
 
 function setPrefs() {
     setCookie("name", document.getElementById("box_1").value, 365);
     setCookie("username", document.getElementById("box_2").value, 365);
     clearBoxes();
+    navigate();
 }
 
 function setCookie(cname, cvalue, exdays) {
