@@ -11,9 +11,19 @@ socket.on('broad', function (data) {
 $('form').submit(function (e) {
     var username = getCookie("username");
     e.preventDefault();
-    var message = $('#chat_input').val();
-    socket.emit('messages', "[" + username + "]: " + message);
+    var message = $("#chat_input").val();
+    if(!message.startsWith("/") && !(message == "")) {
+        socket.emit('messages', "[" + username + "]: " + message);
+    } else {
+        //Commands
+        if(message == "/clear") {
+            $("#future").html("");
+        }
+    }
+    clearBoxes();
 });
+
+socket.emit('messages', getCookie("username") + " " + "joined the chat!");
 
 function navigate(loc) {
     switch(loc) {
@@ -32,6 +42,8 @@ function navigate(loc) {
             document.getElementById("box_4").style.display = "none";
             document.getElementById("desc_3").style.display = "none";
             document.getElementById("desc_4").style.display = "none";
+
+            document.getElementById("apply").setAttribute("onclick", "setPrefs()");
 
             document.getElementById("box_1").setAttribute("placeholder", "Username");
             document.getElementById("box_2").setAttribute("placeholder", "Displayname");
@@ -53,51 +65,40 @@ function navigate(loc) {
             document.getElementById("box_3").setAttribute("placeholder", "Navigation Light (e.g. #fedcba)");
             document.getElementById("box_4").setAttribute("placeholder", "Font Color (e.g. #ffffff)");
             break;
-        case 3: //Save or Load
-            document.getElementById("header").innerHTML = "Save and Load";
-            document.getElementById("future").style.display = "none";
-            document.getElementById("form").style.display = "none";
-            document.getElementById("select_container").style.display = "block";
-            document.getElementById("box_3").style.display = "block";
-            document.getElementById("box_4").style.display = "block";
-            document.getElementById("desc_3").style.display = "block";
-            document.getElementById("desc_4").style.display = "block";
     }
 }
 
-function selectTheme(a1, a2, a3, a4) {
-    var font;
-    var bg;
-    var nav_D;
-    var nav_L;
-    if(a1 != undefined && a2 != undefined && a3 != undefined && a4 != undefined) {
-        bg = a1;
-        nav_D = a2;
-        nav_L = a3;
-        font = a4;
-    } else {
-        bg = document.getElementById("box_1").value;
-        nav_D = document.getElementById("box_2").value;
-        nav_L = document.getElementById("box_3").value;
-        font = document.getElementById("box_4").value;
-    }
+function selectTheme() {
+    var font = document.getElementById("box_4").value;
+    var bg = document.getElementById("box_1").value;
+    var nav_D = document.getElementById("box_2").value;
+    var nav_L = document.getElementById("box_3").value;
 
     var body = document.getElementById("body").style;
-    var dark = document.getElementById("dark_elem").style;
+    var dark = $(".dark_elem");
 
     if(bg != "") {
         body.backgroundImage = "linear-gradient(to right, rgba(" + bg + ", 0), rgba(" + bg + ", 1))";
         setCookie("background", bg, 365);
+    } else {
+        bg = getCookie("background");
+        body.backgroundImage = "linear-gradient(to right, rgba(" + bg + ", 0), rgba(" + bg + ", 1))";
     }
 
     if(font != "") {
         body.color = font;
         setCookie("fontcolor", font, 365);
+    } else {
+        font = getCookie("fontcolor");
+        body.color = font;
     }
 
     if(nav_D != "") {
         dark.background = nav_D;
         setCookie("navdark", nav_D, 365);
+    } else {
+        nav_D = getCookie("navdark");
+        dark.background = nav_D;
     }
 
     if (nav_L != "" && nav_D != "") {
@@ -109,12 +110,31 @@ function selectTheme(a1, a2, a3, a4) {
             style.appendChild(document.createTextNode(css));
         }
         setCookie("navlight", nav_L, 365);
+    } else {
+        if(nav_L == "") {
+            nav_L = getCookie("navlight");
+        }
+
+        if(nav_D == "") {
+            nav_D = getCookie("navdark");
+        }
+        var css = "#lightelem { background-color:" + nav_D + " } #lightelem:hover{ background-color: " + nav_L + " }";
+        var style = document.createElement('style');
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+        setCookie("navlight", nav_L, 365);
     }
+
+    clearBoxes();
 }
 
 function setPrefs() {
-    setCookie("name", document.getElementById("box_1"), 365);
-    setCookie("username", document.getElementById("box_2"), 365);
+    setCookie("name", document.getElementById("box_1").value, 365);
+    setCookie("username", document.getElementById("box_2").value, 365);
+    clearBoxes();
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -144,14 +164,19 @@ function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
+function clearBoxes() {
+    var inputs = document.getElementsByTagName("input");
+    for (let item of inputs) {
+        if(item.value != "Send") {
+            item.value = "";
+        }
+    }
+}
+
 function checkCookies() {
     var username = getCookie("username");
-    if (username != "") {
-        $('form').submit(function (e) {
-            e.preventDefault();
-            socket.emit('messages', username + " " + "joined the chat!");
-        });
-    } else {
+    if (username == "") {
+        //Default Values
         setCookie("username", "Anonymous", 365);
         setCookie("name", "Unknown", 365);
         setCookie("background", "20, 20, 160", 365);
@@ -159,6 +184,8 @@ function checkCookies() {
         setCookie("navlight", "#787878", 365);
         setCookie("fontcolor", "#ffffff", 365);
     }
+
+    selectTheme();
 }
 
 function clearCookies() {
@@ -178,3 +205,7 @@ function printData() {
     console.log("Light Nav: " + getCookie("navlight"));
     console.log("Font Color: " + getCookie("fontcolor"));
 }
+
+/*
+    Create Profiles and allow switching between them.
+*/
