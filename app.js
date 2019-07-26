@@ -32,3 +32,5 @@ io.on('connection', function(client) {
 });
 
 server.listen(4200);
+
+//NAT
