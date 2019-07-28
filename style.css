@@ -86,7 +86,7 @@
     }
     
     .chat_input {
-        width: 90%;
+        width: 80%;
         height: 30px;
         display: inline-block;
         background-color: #787878;
@@ -135,7 +135,7 @@
     .future {
         margin-left: 10px;
         margin-bottom: 25px;
-        width: 90%;
+        width: 83%;
         min-height: 100px;
         padding: 10px;
         border-radius: 20px 0px;

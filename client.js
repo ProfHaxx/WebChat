@@ -11,14 +11,7 @@ $('form').submit(function (e) {
     var username = getCookie("username");
     e.preventDefault();
     var message = $("#chat_input").val();
-    if(!message.startsWith("/") && !(message == "")) {
-        socket.emit('messages', "[" + username + "]: " + message);
-    } else {
-        //Commands
-        if(message == "/clear") {
-            $("#future").html("");
-        }
-    }
+    socket.emit('messages', "[" + username + "]: " + message);
     clearBoxes();
 });
 
