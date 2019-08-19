@@ -10,36 +10,42 @@
         <link res="icon" href="./img/chat.ico">
     </head>
 
-    <body onload="navigate(); clearBoxes(); checkCookies()" id="body">
+    <body onload="init()" id="body">
+        <!--Navigation-->
         <div class="nav dark_elem" id="nav">
-            <button class="navbtn" id="light_elem" onclick="navigate()">Home</button>
+            <button class="navbtn" id="homebtn">Home</button>
             <div class="dropdown">
-                <button class="dropbtn" id="light_elem">Preferences</button>
+                <button class="dropbtn" id="prefbtn">Preferences</button>
                 <div class="dropdown-content">
-                    <button class="dropdownbtn" onclick="navigate(1)" id="light_elem">Profile</button>
-                    <button class="dropdownbtn" onclick="navigate(2)" id="light_elem">Theme</button>
+                    <button class="dropdownbtn" id="profilebtn">Profile</button>
+                    <button class="dropdownbtn" id="themebtn">Theme</button>
                 </div>
             </div>
         </div>
 
+        <!--Headline-->
         <div class="header" id="header"></div>
 
-        <div class="select_container" id="select_container">
-            <p id="desc_1"></p>
-            <input class="box_1" id="box_1" id="sel_box" type="text">
-            <p id="desc_2"></p>
-            <input class="box_2" id="box_2" id="sel_box" type="text">
-            <p id="desc_3"></p>
-            <input class="box_3" id="box_3" id="sel_box" type="text">
-            <p id="desc_4"></p>
-            <input class="box_4" id="box_4" id="sel_box" type="text">
-            <button class="select_container_btn" value="Send" id="apply">Apply</button>
-        </div>
+        <!--Profile Form-->
+        <form id="profileform">
+            <input id="in_user" type="text" placeholder="Username">
+            <input id="in_name" type="text" placeholder="Displayname">
+            <input class="themecfm" type="submit" value="Apply">
+        </form>
+
+        <!--Theme Form-->
+        <form id="themeform">
+            <input id="in_background" type="text" placeholder="Background Color">
+            <input id="in_dark" type="text" placeholder="Dark Color">
+            <input id="in_light" type="text" placeholder="Light Color">
+            <input id="in_font" type="text" placeholder="Font Color">
+            <input class="themecfm" type="submit" value="Apply">
+        </form>
 
         <div id="future" class="future"></div>
 
-        <form id="form" id="chat_form" class="chat_form">
-            <input class="chat_input dark_elem" id="chat_input" type="text" placeholder="[Your message]" autocomplete="off">
+        <form id="chatform" class="chatform">
+            <input class="chat_input" id="chatinput" type="text" placeholder="[Your message]" autocomplete="off">
             <input class="sendbtn" id="light_elem" type="submit" value="Send">
         </form>
 
