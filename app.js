@@ -21,7 +21,7 @@ var profiles = [];
 //Initialzing used directories
 app.use(express.static(__dirname + '/node_modules'));
 app.use("/", express.static(__dirname + '/'));
-app.use("/img/", express.static(__dirname + '/img'));
+app.use("/img/", express.static(__dirname + '/img/'));
 
 //Fetching HTML
 app.get('/', function(req, res,next) {
@@ -34,8 +34,8 @@ app.get('/', function(req, res,next) {
 });
 
 //Fetching Icon
-app.get('/', function(req, res,next) {
-    res.sendFile(__dirname + '/img/chat.ico');
+app.get('/img/', function(req, res,next) {
+    res.sendFile(__dirname + '/img/favicon.ico');
 });
 
 //Event Handling
@@ -58,6 +58,10 @@ io.on('connection', function(client) {
                 client.emit('cmd', filteredData[1], filteredData[2]);
             } else {
                 client.emit('cmd', filteredData[1]);
+            }
+            //DEBUG
+            if(filteredData[1] == "debug") {
+                client.emit('debug', client);
             }
         } else if(filteredData[3] != null) { //Private Message
             

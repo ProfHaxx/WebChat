@@ -26,6 +26,10 @@ socket.on('cmd', function(command) {
     }
 });
 
+socket.on('debug', function(dat) {
+    console.log(dat);
+});
+
 //On Connect
 socket.on('connect', function (data) {
     socket.emit('join', 'Connection to Client established!');
