@@ -1,0 +1,1 @@
+1) Profile from Server contains 12 fields instead of 6 (See Browser Console Out).

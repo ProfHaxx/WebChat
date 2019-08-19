@@ -4,6 +4,9 @@ var socket = io.connect();
 var user_data = [];
 
 //Check local storage
+if(getCookie("username") == "") {
+    checkCookies();
+}
 if(getCookie("name") != "") {
     writeSave(getCookie("username"), getCookie("name"), getCookie("background"), 
     getCookie("navdark"), getCookie("navlight"), getCookie("fontcolor"));
@@ -42,7 +45,7 @@ $('#chatform').submit(function (e) {
 $('#homebtn').on('click', function(data) {
     $("#header").html("Chat");
     $("#future").css("display", "block");
-    $("#form").css("display", "inline");
+    $("#chatform").css("display", "inline");
     $('#profileform').css("display", "none");
     $('#themeform').css("display", "none");
 });
@@ -51,7 +54,7 @@ $('#homebtn').on('click', function(data) {
 $('#profilebtn').on('click', function(data) {
     $("#header").html("Profile");
     $("#future").css("display", "none");
-    $("#form").css("display", "none");
+    $("#chatform").css("display", "none");
     $("#profileform").css("display", "inline");
     $("#themeform").css("display", "none");
 });
@@ -60,7 +63,7 @@ $('#profilebtn').on('click', function(data) {
 $('#themebtn').on('click', function(data) {
     $("#header").html("Theme");
     $("#future").css("display", "none");
-    $("#form").css("display", "none");
+    $("#chatform").css("display", "none");
     $("#profileform").css("display", "none");
     $("#themeform").css("display", "inline");
 });
@@ -70,15 +73,36 @@ function init() {
     $('#homebtn').click();
 }
 
-//Send Message
+//Submit Profile
 $('#profileform').submit(function (e) {
-    var username = $('#in_user').val();
-    var name = $('#in_name').val();
+    rebakeCookies(["username", "name"], [$('#in_user').val(), $('#in_name').val()]);
 });
 
+//Submit Theme
 $('#themeform').submit(function(e) {
 
 });
+
+function rebakeCookies(cnames, cvalues) { //Let's hope that cnames and cvalues are Arrays
+    if(cnames.includes("username")) {
+        setCookie("username", cvalues[cnames.indexOf("username")], 365);
+    }
+    if(cnames.includes("name")) {
+        setCookie("name", cvalues[cnames.indexOf("name")], 365);
+    }
+    if(cnames.includes("background")) {
+        setCookie("background", cvalues[cnames.indexOf("background")], 365);
+    }
+    if(cnames.includes("navdark")) {
+        setCookie("navdark", cvalues[cnames.indexOf("navdark")], 365);
+    }
+    if(cnames.includes("navlight")) {
+        setCookie("navlight", cvalues[cnames.indexOf("navlight")], 365);
+    }
+    if(cnames.includes("fontcolor")) {
+        setCookie("fontcolor", cvalues[cnames.indexOf("fontcolor")], 365);
+    }
+}
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -127,8 +151,6 @@ function checkCookies() {
         setCookie("navlight", "#787878", 365);
         setCookie("fontcolor", "#ffffff", 365);
     }
-
-    selectTheme();
 }
 
 function clearCookies() {
@@ -155,4 +177,18 @@ function printData() {
 
 function writeSave(uname, name, bg, dn, ln, fc) {
     socket.emit('write', [uname, name, bg, dn, ln, fc]);
+}
+
+function downloadProfile() {
+    let tdata = JSON.stringify(user_data);
+    let bl = new Blob([tdata], {
+        type: "text/html"
+    });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(bl);
+    a.download = "data.json";
+    a.hidden = true;
+    document.getElementsByTagName("body")[0].append(a);
+    a.innerHTML = "someinnerhtml";
+    a.click();
 }

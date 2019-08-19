@@ -14,7 +14,7 @@ class Profile {
     }
 }
 
-loadProfiles();
+//loadProfiles();
 
 var profiles = [];
 
@@ -50,7 +50,7 @@ io.on('connection', function(client) {
     //Message Received from Client
     client.on('messages', function(data) {
         var filteredData = filterMessage(data);
-        if(filteredData[1] == null && filterData[3] == null && filteredData[4] != "") { //Broadcast
+        if(filteredData[1] == null && filteredData[3] == null && filteredData[4] != "") { //Broadcast
             client.emit('broad', data);
             client.broadcast.emit('broad',data);   
         } else if(filteredData[1] != null) { //Commands
@@ -91,7 +91,6 @@ io.on('connection', function(client) {
             profiles.push(new Profile(username, name, background, darkcolor, lightcolor, fontcolor));
             console.log("Successfully added new profile to <Profiles>");
         }
-        downloadProfiles();
     });
 
     //Read Profile
@@ -102,7 +101,7 @@ io.on('connection', function(client) {
                 dat.push(profile.user, profile.name, profile.background, profile.dark, profile.light, profile.color);
             }
         });
-        client.emit('senddata', dat);
+        client.emit('senddata', [dat[0], dat[1], dat[2], dat[3], dat[4], dat[5]]);
     });
 });
 
@@ -110,7 +109,13 @@ server.listen(4200);
 
 function filterMessage(message) {
     var author = message.match(/[\w]+/)[0];
-    var special = message.split("[" + author + "]: ")[1].substring(0, 1);
+    var t0 = message.split("[" + author + "]: ")[1];
+    var special;
+    if(t0 === undefined) {
+        special = null;
+    } else {
+        special = t0.substring(0, 1);
+    }
     var command = null;
     var param = null;
     var target = null;
@@ -131,18 +136,4 @@ function filterMessage(message) {
         }
     }
     return [author, command, param, target, text];
-}
-
-function downloadProfiles() {
-    let tdata = JSON.stringify(profiles);
-    let bl = new Blob([tdata], {
-        type: "text/html"
-    });
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(bl);
-    a.download = "data.json";
-    a.hidden = true;
-    document.getElementsByTagName("body")[0].append(a);
-    a.innerHTML = "someinnerhtml";
-    a.click();
 }
