@@ -54,7 +54,11 @@ io.on('connection', function(client) {
             client.emit('broad', data);
             client.broadcast.emit('broad',data);   
         } else if(filteredData[1] != null) { //Commands
-
+            if(filteredData[2] != null) {
+                client.emit('cmd', filteredData[1], filteredData[2]);
+            } else {
+                client.emit('cmd', filteredData[1]);
+            }
         } else if(filteredData[3] != null) { //Private Message
             
         }

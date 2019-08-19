@@ -19,6 +19,13 @@ socket.on('senddata', function(profile) {
     user_data = profile;
 });
 
+//Receive Command Data from Server
+socket.on('cmd', function(command) {
+    if(command == "clear") {
+        $('#future').html("");
+    }
+});
+
 //On Connect
 socket.on('connect', function (data) {
     socket.emit('join', 'Connection to Client established!');
