@@ -1,1 +1,4 @@
 1) Profile from Server contains 12 fields instead of 6 (See Browser Console Out).
+2) /clear doesn't works on Mobile [Probably works just on one machine]
+3) Make Font variability better (Too small on both)
+4) Fix Dropdown Position
