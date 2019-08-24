@@ -3,7 +3,7 @@
 @media screen {
     body {
         background-image: linear-gradient(to right, rgba(20, 20, 160, 0), rgba(20, 20, 160, 1));
-        font-size: 3vh;
+        font-size: 2vh;
     }
     
     /* Whole Navigation Bar*/
