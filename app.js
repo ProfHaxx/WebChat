@@ -14,8 +14,6 @@ class Profile {
     }
 }
 
-//loadProfiles();
-
 var profiles = [];
 
 //Initialzing used directories

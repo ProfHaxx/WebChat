@@ -1,6 +1,6 @@
 /* Desktop PC, Notebook, Tablet */
 
-@media only screen and (min-aspect-ratio: 1/1) {
+@media screen {
     body {
         background-image: linear-gradient(to right, rgba(20, 20, 160, 0), rgba(20, 20, 160, 1));
     }
@@ -37,6 +37,7 @@
     
     /* Profile, Theme */
     .dropdown-content {
+        margin-left: -68px;
         display: none;
         position: absolute;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -86,7 +87,7 @@
     }
     
     .chat_input {
-        width: 80%;
+        width: 65%;
         height: 30px;
         display: inline-block;
         background-color: #787878;
@@ -142,13 +143,5 @@
         border: 4px;
         border-color: #5a5a5a;
         background: #787878;
-    }
-}
-
-/* Phone, etc*/
-
-@media only screen and (max-aspect-ratio: 1/1) {
-    body {
-      background-color: rgb(7, 25, 31);
     }
 }
