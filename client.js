@@ -1,5 +1,7 @@
 var socket = io.connect();
 
+$('.footer').html("v1.6.6");
+
 //User Data
 var user_data = [];
 
@@ -50,6 +52,18 @@ $('#chatform').submit(function (e) {
     var message = $("#chatinput").val();
     socket.emit('messages', "[" + username + "]: " + message);
     clearBoxes();
+});
+
+var preftoggle = false;
+//On Pref Click
+$('#prefbtn').on('click', function(data) {
+
+    if(!preftoggle) { //closed
+        $(".dropdown-content").css("display", "block");
+    } else {
+        $(".dropdown-content").css("display", "none");
+    }
+    preftoggle = !preftoggle;
 });
 
 //On Home Click

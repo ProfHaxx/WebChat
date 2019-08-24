@@ -3,14 +3,18 @@
 @media screen {
     body {
         background-image: linear-gradient(to right, rgba(20, 20, 160, 0), rgba(20, 20, 160, 1));
+        font-size: 2vh;
     }
     
     /* Whole Navigation Bar*/
-    .nav {
+    #nav {
+        font-size: inherit;
+        background-color: #5a5a5a;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: #5a5a5a;
+        width: 100%;
+        height: 10vh;
     }
     
     /* Home and Preferences*/
@@ -22,6 +26,13 @@
         text-decoration: none;
         background-color: #4e4e4e;
         border: none;
+        font-size: inherit;
+        height: inherit;
+    }
+
+    .dropbtn {
+        height: 10vh;
+        width: 10vw;
     }
     
     /* Home when hovered*/
@@ -32,12 +43,13 @@
     /* Dropdown Container */
     .dropdown {
         float: right;
-        /*display: inline-block;*/
+        font-size: inherit;
     }
     
     /* Profile, Theme */
     .dropdown-content {
-        margin-left: -68px;
+        margin-left: -7vw;
+        font-size: 2vh;
         display: none;
         position: absolute;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -45,9 +57,8 @@
     }
     
     /* Hide, Show Mechanics*/
-    .dropdown:hover .dropdown-content {
+    .dropbtn:hover .dropdown-content {
         display: block;
-        width: 121px;
     }
     
     /* Change color on hover */
@@ -65,83 +76,72 @@
         display: block;
         text-align: left;
         border: none;
+        font-size: inherit;
     }
     
-    .sendbtn {
-        display: inline-block;
-        background-color: #787878;
-        color: #ffffff;
-        border: none;
-        border-radius: 0px 16px 16px 0px;
-        height: 32px;
-        margin-left: -7px;
-        padding-right:10px; 
+    /*Headline*/
+    .header {
+        font-size: 3vh;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        margin: 25px 0px 50px 0px;
+        height: 10vh;
     }
-    
-    .sendbtn:hover {
-        background-color: #5a5a5a;
+
+    /*The actual chat*/
+    .future {
+        margin-top: -7vh;
+        margin-left: 10px;
+        margin-bottom: 25px;
+        width: 85vw;
+        padding: 10px;
+        border-radius: 20px 0px;
+        border: 4px;
+        border-color: #5a5a5a;
+        background: #787878;
+        height: 50vh;
+        overflow-y: auto;
     }
-    
+
+    /*Chat Input*/
     .chatform {
         padding-left: 10px;
+        position: relative;
+        padding-bottom: 40px;
+        height: 7vh;
     }
     
     .chat_input {
+        font-size: inherit;
         width: 65%;
-        height: 30px;
+        height: inherit;
+        /*height: 30px;*/
         display: inline-block;
         background-color: #787878;
         border: none;
         border-radius: 16px 0px 0px 16px;
         padding-left: 16px;
     }
-    
-    .select_container input {
-        height: 30px;
-        display: block;
-        background-color: #787878;
-        border: none;
-        border-radius: 16px 16px 16px 16px;
-        padding-left: 16px;
-        margin: 26px 0px;
-        position: relative;
-        width: 240px;
-    }
-    
-    .select_container button {
+
+    .sendbtn {
         display: inline-block;
-        background-color: #5a5a5a;
+        background-color: #787878;
         color: #ffffff;
         border: none;
-        border-radius: 16px 16px 16px 16px;
-        height: 32px;
+        border-radius: 0px 16px 16px 0px;
+        height: inherit;
+        margin-left: -8px;
+        padding-right:10px;
+        font-size: inherit;
     }
     
-    .select_container button:hover {
-        background-color: #787878;
+    .sendbtn:hover {
+        background-color: #5a5a5a;
     }
     
-    .select_container p {
-        margin-top: 10px;
-        margin-bottom: -10px;
-    }
-    
-    .header {
-        font-size: 32px;
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: bold;
-        margin: 25px 0px 50px 0px;
-    }
-    
-    .future {
-        margin-left: 10px;
-        margin-bottom: 25px;
-        width: 83%;
-        min-height: 100px;
-        padding: 10px;
-        border-radius: 20px 0px;
-        border: 4px;
-        border-color: #5a5a5a;
-        background: #787878;
+    .footer {
+        height: 5vh;
+        position: fixed;
+        bottom: 0;
     }
 }
