@@ -110,7 +110,7 @@
         padding: 0px 10px;
         height: 50vh;
         overflow-y: auto;
-        line-height: 1vh;
+        line-height: 4vh;
     }
 
     .main > .chatform {
