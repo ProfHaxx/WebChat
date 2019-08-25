@@ -27,7 +27,7 @@ function dropMenu() {
         $(".icon").css("bottom", "0%");
     } else {
         $("#myLinks").css("display", "block");
-        $(".icon").css("bottom", "44%");
+        $(".icon").css("bottom", "54%");
     }
     menuToggle = !menuToggle;
 }

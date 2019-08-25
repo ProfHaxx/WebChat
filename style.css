@@ -259,6 +259,10 @@
         display: block;
     }
 
+    div#myLinks > a {
+        font-size: 2vh;
+    }
+
     /*Mobile Navigation End*/
 
     .main * {
