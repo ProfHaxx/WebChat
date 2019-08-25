@@ -2,14 +2,15 @@
 .fa {
     display:inline-block;
     /*font:normal normal normal 14px/1 FontAwesome; Probably creates problem with displays*/
-    font-size:inherit;
+    font-style: normal;
+    font-size: 40px;
     text-rendering:auto;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
 }
 
 .fa-bars:before{
-    content:"\f0c9";
+    content:"≡";
 }
 /*End Style Hamburger Menu*/
 
