@@ -223,7 +223,7 @@
         background-color: #333;
         position: relative;
         margin-bottom: 4vh;
-        height: 10vh;
+        height: 8vh;
     }
 
     .mobilenav .dropdownlist #myLinks {
@@ -264,6 +264,7 @@
     .active {
         background: #5598d6;
         color: white;
+        font-size: inherit;
     }
 
     .main * {
@@ -288,7 +289,7 @@
     }
 
     .main > .chatform {
-        width: cal(100vw - 20px); /*Figure this out*/
+        width: calc(100vw - 20px); /*Figure this out*/
         height: 4vh;
     }
 
