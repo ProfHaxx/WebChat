@@ -263,7 +263,6 @@
     .active {
         background: #5598d6;
         color: white;
-        font-size: inherit;
     }
 
     .main * {
