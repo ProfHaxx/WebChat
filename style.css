@@ -230,15 +230,14 @@
         display: none;
     }
 
-    .mobilenav a,
-    .mobilenav .dropdownlist a {
+    .mobilenav a {
         color: white;
         padding: 14px 16px;
         text-decoration: none;
         display: block;
     }
 
-    .mobilenav .dropdownlist a.icon {
+    .mobilenav a.icon {
         height: 8vh;
         width: 10vw;
         text-align: center;
@@ -249,7 +248,7 @@
         top: 0;
     }
 
-    .mobilenav .dropdownlist a:hover {
+    .mobilenav a:hover {
         background-color: #ddd;
         color: black;
     }
