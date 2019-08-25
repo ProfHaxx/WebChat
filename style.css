@@ -214,58 +214,60 @@
         background: lightslategrey;
     }
 
+    /*Mobile Navigation Start*/
     #nav {
         display: none;
     }
 
-    .mobilenav {
+    .mobile-container {
+        max-width: 480px;
+        margin: auto;
+        background-color: #555;
+        height: 500px;
+        color: white;
+        border-radius: 10px;
+      }
+      
+      .mobilenav {
         overflow: hidden;
         background-color: #333;
         position: relative;
-        margin-bottom: 4vh;
-        height: 8vh;
-    }
-
-    .mobilenav .dropdownlist #myLinks {
+      }
+      
+      .mobilenav #myLinks {
         display: none;
-    }
-
-    .mobilenav a {
+      }
+      
+      .mobilenav a {
         color: white;
         padding: 14px 16px;
         text-decoration: none;
+        font-size: 17px;
         display: block;
-    }
-
-    .mobilenav a.icon {
-        height: 8vh;
-        width: 10vw;
-        text-align: center;
+      }
+      
+      .mobilenav a.icon {
         background: black;
         display: block;
         position: absolute;
         right: 0;
         top: 0;
-    }
-
-    .mobilenav a:hover {
+      }
+      
+      .mobilenav a:hover {
         background-color: #ddd;
         color: black;
-    }
-
-    .mobilenav .dropdownlist:hover #myLinks {
-        display: block;
-    }
-
-    .mobilenav > *, .mobilenav > .dropdownlist > .icon > i{
-        font-size: 5vh;
-        height: inherit;
-    }
-
-    .active {
-        background: #5598d6;
+      }
+      
+      .active {
+        background-color: #4CAF50;
         color: white;
-    }
+      }
+      
+      .mobilenav .dropdownlist:hover #myLinks {
+        display: block;
+      }
+    /*Mobile Navigation End*/
 
     .main * {
         font-size: 1.5vh;
