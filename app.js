@@ -14,7 +14,28 @@ class Profile {
     }
 }
 
+class Message {
+    constructor(author, command, param, target, text) {
+        this.author = author;
+        this.command = command;
+        this.param = param;
+        this.target = target;
+        this.text = text;
+        if(target == null && command == null) {
+            this.type = "Public";
+            this.raw = "[" + author + "]: " + text;
+        } else if(target != null) {
+            this.type = "Private";
+            this.raw = "[" + author + "]: @" + author + " " + text;
+        } else {
+            this.type = "Command";
+            this.raw = "[" + author + "]: /" + command + " " + param;
+        }
+    }
+}
+
 var profiles = [];
+var autoscroll = false;
 
 //Initialzing used directories
 app.use(express.static(__dirname + '/node_modules'));
@@ -47,21 +68,28 @@ io.on('connection', function(client) {
 
     //Message Received from Client
     client.on('messages', function(data) {
-        var filteredData = filterMessage(data);
-        if(filteredData[1] == null && filteredData[3] == null && filteredData[4] != "") { //Broadcast
-            client.emit('broad', data);
-            client.broadcast.emit('broad',data);   
-        } else if(filteredData[1] != null) { //Commands
-            if(filteredData[2] != null) {
-                client.emit('cmd', filteredData[1], filteredData[2]);
-            } else {
-                client.emit('cmd', filteredData[1]);
+        var msg = 
+            new Message(filterMessage(data)[0], filterMessage(data)[1],
+                filterMessage(data)[2], filterMessage(data)[3], filterMessage(data)[4]
+            );
+        console.log(msg.type);
+        if(msg.command == null && msg.target == null && msg.text != "") { //Broadcast
+            client.emit('broad', data, autoscroll);
+            client.broadcast.emit('broad',data, autoscroll);
+        } else if(msg.command != null) { //Commands
+            switch(msg.command) {
+                case "autoscroll":
+                    autoscroll = !autoscroll;
+                    break;
+                default:
+                    if(msg.param != null) {
+                        client.emit('cmd', msg.command, msg.param);
+                    } else {
+                        client.emit('cmd', msg.command);
+                    }
+                    break;
             }
-            //DEBUG
-            if(filteredData[1] == "debug") {
-                client.emit('debug', client);
-            }
-        } else if(filteredData[3] != null) { //Private Message
+        } else if(msg.target != null) { //Private Message
             
         }
     });
@@ -114,7 +142,7 @@ io.on('connection', function(client) {
 server.listen(4200);
 
 function filterMessage(message) {
-    var author = message.match(/[\w]+/)[0];
+    var author = message.match(/[\w ]+/)[0];
     var t0 = message.split("[" + author + "]: ")[1];
     var special;
     if(t0 === undefined) {
@@ -141,5 +169,6 @@ function filterMessage(message) {
             text = message.split("[" + author + "]: @" + target + " ")[1];
         }
     }
+    console.log(author + "/" + command + "/" + param + "/" + target + "/" + text);
     return [author, command, param, target, text];
 }

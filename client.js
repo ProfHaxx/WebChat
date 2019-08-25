@@ -68,9 +68,16 @@ socket.on('connect', function (data) {
 });
 
 //On Broadcast
-socket.on('broad', function (data) {
+socket.on('broad', function (data, scroll) {
     $('#future').append(data + "<br/>");
+    if(scroll) {
+        document.getElementById("future").scrollTop += 100000;
+    }
 });
+
+function scrolldown() {
+    document.getElementById("future").scrollTop += 10000;
+}
 
 //On Message
 socket.emit('messages', getCookie("username") + " " + "joined the chat!");

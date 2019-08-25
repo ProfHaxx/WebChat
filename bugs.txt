@@ -1,7 +1,5 @@
 1) Profile Saving Method
-2) /clear doesn't works on Mobile [Probably works just on one machine]
-3) Auto Scroll Down
-4) style.css | line 117
+2) /clear doesn't works on Mobile
 5) Add Image as Background
 6) Regex Validations to Theme Menu
 7) Add Buttons to Theme Menu:
