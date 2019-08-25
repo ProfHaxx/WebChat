@@ -197,7 +197,7 @@ function deleteCookie(cname) {
 function clearBoxes() {
     var inputs = document.getElementsByTagName("input");
     for (let item of inputs) {
-        if(item.value != "OK" || item.value != "Apply" || item.value != "Send") {
+        if(item.value != "OK" && item.value != "Apply" && item.value != "Send") {
             item.value = "";
         }
     }
