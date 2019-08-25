@@ -3,14 +3,27 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+class Chat {
+    participants = [];
+    messages = [];
+}
+
 class Profile {
-    constructor(uname, name, bg, dn, ln, fc) {
+    constructor(uname, name, colorset, backgroundID, settings) {
         this.user = uname;
         this.name = name;
-        this.background = bg;
-        this.dark = dn;
-        this.light = ln;
-        this.color = fc;
+        this.colorset = colorset;
+        this.backgroundID = backgroundID;
+        this.settings = settings;
+    }
+
+    searchSetting(key) {
+        this.settings.forEach(setting => {
+            if(setting.key = key) {
+                return setting.value;
+            }
+        });
+        return null;
     }
 }
 
@@ -22,6 +35,13 @@ class Message {
         this.target = target;
         this.text = text;
         this.type = type;
+    }
+}
+
+class Setting {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
     }
 }
 
@@ -40,6 +60,11 @@ app.get('/', function(req, res,next) {
 //Fetching Stylesheets
 app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/style.css');
+});
+
+//Fetching Stylesheets
+app.get('/', function(req, res,next) {
+    res.sendFile(__dirname + '/img/style.css');
 });
 
 //TODO: List of all connected people
@@ -70,9 +95,6 @@ io.on('connection', function(client) {
                 case "autoscroll":
                     autoscroll = !autoscroll;
                     break;
-                case "info":
-                    client.emit('debug', client);
-                    break;
                 default:
                     if(msg.param != null) {
                         client.emit('cmd', msg.command, msg.param);
@@ -86,48 +108,15 @@ io.on('connection', function(client) {
         }
     });
 
-    //Write Profile [Massive TODO]
-    client.on('write', function(data) {
-        
-        var username = data[0];
-        var name = data[1];
-        var background = data[2];
-        var darkcolor = data[3];
-        var lightcolor = data[4];
-        var fontcolor = data[5];
-
-        var override = -1;
-        var overnum = -1;
-
-        profiles.forEach(profile => {
-            override++;
-            if(profile.name == name) {
-                overnum = override;
-            }
-        });
-
-        if(overnum != -1) { //Override old data
-            if(username != "") { profiles[overnum].user = username; }
-            if(background != "") { profiles[overnum].background = background; }
-            if(darkcolor != "") { profiles[overnum].dark = username; }
-            if(lightcolor != "") { profiles[overnum].light = username; }
-            if(fontcolor != "") { profiles[overnum].color = fontcolor; }
-            console.log("Successfully modified profile in <Profiles>");
-        } else { //Write new entry
-            profiles.push(new Profile(username, name, background, darkcolor, lightcolor, fontcolor));
-            console.log("Successfully added new profile to <Profiles>");
-        }
+    //Write Profile
+    client.on('write', function(username, name, colorset, backgroundID, settings) {
+        addProfile(username, name, colorset, backgroundID, settings);
     });
 
     //Read Profile [Massive TODO]
     client.on('read', function(name) {
-        var dat = [];
-        profiles.forEach(profile => {
-            if(profile.name = name) {
-                dat.push(profile.user, profile.name, profile.background, profile.dark, profile.light, profile.color);
-            }
-        });
-        client.emit('senddata', [dat[0], dat[1], dat[2], dat[3], dat[4], dat[5]]);
+        var profile = getProfile(name);
+        client.emit('senddata', profile.username, profile.name, profile.colorset, profile.backgroundID, profile.settings);
     });
 });
 
@@ -156,4 +145,42 @@ function filterMessage(message) {
     }
     console.log(author + "/" + command + "/" + param + "/" + target + "/" + text);
     return new Message(author, command, param, target, text, type);
+}
+
+function getProfile(name) {
+    profiles.forEach(profile => {
+        if(profile.name == name) {
+            return profile;
+        }
+    });
+}
+
+function getProfileID(name) {
+    var id = 0;
+    profiles.forEach(profile => {
+        if(profile.name == name) {
+            return id;
+        }
+        id += 1;
+    });
+}
+
+function addProfile(username, name, colorset, backgroundID, settings) {
+    //DEFAULT VALUES
+    if(name == "" || name == null) {
+        console.error("Adding of Profile failed due to empty name!");  
+    }
+    if(username == "") {username = "Anonymous";}
+    if(colorset == null) {colorset = ["#35a0c6", "#3557c6", "#5c35c6"]}
+    if(backgroundID == null || backgroundID == 0) {backgroundID = 1;}
+    //HANDLING STARTS HERE
+    if(getProfile(name) == null) {
+        profiles.push(new Profile(username, name, colorset, backgroundID, settings));
+    } else {
+        modifyProfile(getProfileID(name), new Profile(username, name, colorset, backgroundID, settings));
+    }
+}
+
+function modifyProfile(profileID, newProfile) {
+    profiles[profileID] = newProfile;
 }

@@ -152,7 +152,7 @@
         width: 40vw;
     }
 
-    .main > #profileform > #in_user, .main > #profileform > #in_name {
+    .main > #profileform > .forminput {
         padding: 5px 10px;
         display: block;
         background: #808080;
@@ -179,10 +179,7 @@
         width: 40vw;
     }
 
-    .main > #themeform > #in_background, 
-    .main > #themeform > #in_dark,
-    .main > #themeform > #in_light,
-    .main > #themeform > #in_font {
+    .main > #themeform > .forminput {
         padding: 5px 10px;
         display: block;
         background: #808080;
@@ -325,8 +322,7 @@
         font-size: 3vh;
     }
 
-    .main>#profileform>#in_user,
-    .main>#profileform>#in_name {
+    .main > #profileform > .forminput {
         font-size: inherit;
         padding: 5px 10px;
         display: block;
@@ -357,10 +353,7 @@
         ;
     }
 
-    .main>#themeform>#in_background,
-    .main>#themeform>#in_dark,
-    .main>#themeform>#in_light,
-    .main>#themeform>#in_font {
+    .main > #themeform > .forminput {
         padding: 5px 10px;
         display: block;
         background: #808080;
