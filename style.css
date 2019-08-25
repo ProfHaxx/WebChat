@@ -3,7 +3,7 @@
     display:inline-block;
     /*font:normal normal normal 14px/1 FontAwesome; Probably creates problem with displays*/
     font-style: normal;
-    font-size: 40px;
+    font-size: 4vh;
     text-rendering:auto;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
