@@ -15,22 +15,13 @@ class Profile {
 }
 
 class Message {
-    constructor(author, command, param, target, text) {
+    constructor(author, command, param, target, text, type) {
         this.author = author;
         this.command = command;
         this.param = param;
         this.target = target;
         this.text = text;
-        if(target == null && command == null) {
-            this.type = "Public";
-            this.raw = "[" + author + "]: " + text;
-        } else if(target != null) {
-            this.type = "Private";
-            this.raw = "[" + author + "]: @" + author + " " + text;
-        } else {
-            this.type = "Command";
-            this.raw = "[" + author + "]: /" + command + " " + param;
-        }
+        this.type = type;
     }
 }
 
@@ -40,7 +31,6 @@ var autoscroll = false;
 //Initialzing used directories
 app.use(express.static(__dirname + '/node_modules'));
 app.use("/", express.static(__dirname + '/'));
-app.use("/img/", express.static(__dirname + '/img/'));
 
 //Fetching HTML
 app.get('/', function(req, res,next) {
@@ -53,7 +43,7 @@ app.get('/', function(req, res,next) {
 });
 
 //Fetching Icon
-app.get('/img/', function(req, res,next) {
+app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/img/favicon.ico');
 });
 
@@ -63,23 +53,23 @@ io.on('connection', function(client) {
 
     //On Join Event
     client.on('join', function(data) {
-        console.log(data);
+        console.log(client.json);
     });
 
     //Message Received from Client
     client.on('messages', function(data) {
-        var msg = 
-            new Message(filterMessage(data)[0], filterMessage(data)[1],
-                filterMessage(data)[2], filterMessage(data)[3], filterMessage(data)[4]
-            );
+        var msg = filterMessage(data);
         console.log(msg.type);
         if(msg.command == null && msg.target == null && msg.text != "") { //Broadcast
             client.emit('broad', data, autoscroll);
-            client.broadcast.emit('broad',data, autoscroll);
+            client.broadcast.emit('broad', data, autoscroll);
         } else if(msg.command != null) { //Commands
             switch(msg.command) {
                 case "autoscroll":
                     autoscroll = !autoscroll;
+                    break;
+                case "info":
+                    client.emit('debug', client);
                     break;
                 default:
                     if(msg.param != null) {
@@ -94,7 +84,7 @@ io.on('connection', function(client) {
         }
     });
 
-    //Write Profile
+    //Write Profile [Massive TODO]
     client.on('write', function(data) {
         
         var username = data[0];
@@ -127,7 +117,7 @@ io.on('connection', function(client) {
         }
     });
 
-    //Read Profile
+    //Read Profile [Massive TODO]
     client.on('read', function(name) {
         var dat = [];
         profiles.forEach(profile => {
@@ -142,33 +132,26 @@ io.on('connection', function(client) {
 server.listen(4200);
 
 function filterMessage(message) {
-    var author = message.match(/[\w ]+/)[0];
-    var t0 = message.split("[" + author + "]: ")[1];
-    var special;
-    if(t0 === undefined) {
-        special = null;
-    } else {
-        special = t0.substring(0, 1);
-    }
-    var command = null;
-    var param = null;
-    var target = null;
-    var text = null;
-    if(special != "/" && special != "@") {
-        special = null;
-        text = message.split("[" + author + "]: ")[1];
-    } else {
-        try { command = message.match(/[/][\w]+/)[0].substring(1); } catch (error) {}
-        try { target = message.match(/[@][\w]+/)[0].substring(1); } catch (error) {}
-
-        if(command != null) {
-            param = message.split("[" + author + "]: /" + command + " ")[1];
-        }
-
-        if(target != null) {
-            text = message.split("[" + author + "]: @" + target + " ")[1];
+    var author, command, param, target, text, type;
+    if (message.match(/\[([\w ]+)\]: ([^/@])(.+)/) != null) {
+        type = "public";
+        author = message.match(/\[([\w ]+)\]: ([^/@])(.+)/)[1];
+        text = message.match(/\[([\w ]+)\]: ([^/@])(.+)/)[2] +
+            message.match(/\[([\w ]+)\]: ([^/@])(.+)/)[3];
+    } else if (message.match(/\[([\w ]+)\]: @([\w]+)(.+)/) != null) {
+        type = "private";
+        author = message.match(/\[([\w ]+)\]: ([^/@]+)/)[1];
+        target = message.match(/\[([\w ]+)\]: ([^/@]+)/)[2];
+        text = message.match(/\[([\w ]+)\]: ([^/@]+)/)[3];
+    } else if (message.match(/\[([\w ]+)\]: \/([\w]+)[ ]?(.*)/) != null) {
+        type = "command";
+        author = message.match(/\[([\w ]+)\]: \/([\w]+)[ ]?(.*)/)[1];
+        command = message.match(/\[([\w ]+)\]: \/([\w]+)[ ]?(.*)/)[2];
+        param = message.match(/\[([\w ]+)\]: \/([\w]+)[ ]?(.*)/)[3];
+        if (param == "" || param == " ") {
+            param = undefined;
         }
     }
     console.log(author + "/" + command + "/" + param + "/" + target + "/" + text);
-    return [author, command, param, target, text];
+    return new Message(author, command, param, target, text, type);
 }
