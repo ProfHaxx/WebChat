@@ -256,6 +256,7 @@
     }
 
     .mobilenav > *, .mobilenav > .dropdownlist > .icon > i{
+        font-size: 3vh;
         height: inherit;
     }
 
