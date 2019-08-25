@@ -252,6 +252,7 @@
     .active {
         background-color: #4CAF50;
         color: white;
+        font-size: 4vh;
     }
 
     .mobilenav .dropdownlist:hover #myLinks {
