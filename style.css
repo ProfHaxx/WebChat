@@ -255,6 +255,10 @@
         display: block;
     }
 
+    .mobilenav > *, .mobilenav > .dropdownlist > .icon > i{
+        height: inherit;
+    }
+
     .active {
         background: #5598d6;
         color: white;
