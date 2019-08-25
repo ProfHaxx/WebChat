@@ -1,7 +1,7 @@
 /*Style to make Hamburger Menu*/
 .fa {
     display:inline-block;
-    font:normal normal normal 14px/1 FontAwesome;
+    /*font:normal normal normal 14px/1 FontAwesome; Probably creates problem with displays*/
     font-size:inherit;
     text-rendering:auto;
     -webkit-font-smoothing:antialiased;
@@ -256,7 +256,7 @@
     }
 
     .mobilenav > *, .mobilenav > .dropdownlist > .icon > i{
-        font-size: 6vh;
+        font-size: 5vh;
         height: inherit;
     }
 
