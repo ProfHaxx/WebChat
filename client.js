@@ -112,6 +112,7 @@ $('#profilebtn').on('click', function(data) {
     $("#chatform").css("display", "none");
     $("#profileform").css("display", "inline");
     $("#themeform").css("display", "none");
+    $(".profilecfm").attr("value", "OK");
 });
 
 //On Theme Click
@@ -121,6 +122,7 @@ $('#themebtn').on('click', function(data) {
     $("#chatform").css("display", "none");
     $("#profileform").css("display", "none");
     $("#themeform").css("display", "inline");
+    $(".themecfm").attr("value", "OK");
 });
 
 //Onload Function
@@ -195,7 +197,7 @@ function deleteCookie(cname) {
 function clearBoxes() {
     var inputs = document.getElementsByTagName("input");
     for (let item of inputs) {
-        if(item.value != "Send") {
+        if(item.value != "OK" || item.value != "Apply" || item.value != "Send") {
             item.value = "";
         }
     }
