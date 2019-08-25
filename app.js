@@ -42,10 +42,8 @@ app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/style.css');
 });
 
-//Fetching Icon
-app.get('/', function(req, res,next) {
-    res.sendFile(__dirname + '/img/favicon.ico');
-});
+//TODO: List of all connected people
+var connected = [];
 
 //Event Handling
 io.on('connection', function(client) {
@@ -53,7 +51,11 @@ io.on('connection', function(client) {
 
     //On Join Event
     client.on('join', function(data) {
-        console.log(client.json);
+        console.log(client.handshake.address + " just joined");
+    });
+
+    client.on('disconnect', function() {
+        console.log(client.handshake.address + " just disconnected");
     });
 
     //Message Received from Client

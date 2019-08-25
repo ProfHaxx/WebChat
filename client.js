@@ -10,6 +10,10 @@ if(document.documentElement.clientWidth > document.documentElement.clientHeight)
     $('.footer').html("v1.6.7 [Mobile]");
 }
 
+$.getJSON('https://api.ipify.org?format=json', function(data) {
+    console.log(data.ip);
+});
+
 //Mobile Navigation Functions
 function nav(str) {
     console.log("Navigates to " + str);

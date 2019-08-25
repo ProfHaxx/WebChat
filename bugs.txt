@@ -7,3 +7,4 @@
     - Preset (Color Theme)
     - Custom (Use Inputs)
     - Upload (Upload Image)
+8) A lot of TODO's in app.js
