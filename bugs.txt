@@ -1,4 +1,11 @@
-1) Profile from Server contains 12 fields instead of 6 (See Browser Console Out).
+1) Profile Saving Method
 2) /clear doesn't works on Mobile [Probably works just on one machine]
-3) Make Font variability better (Too small on both)
-4) Fix Dropdown Position
+3) Auto Scroll Down
+4) style.css | line 117
+5) Add Image as Background
+6) Regex Validations to Theme Menu
+7) Add Buttons to Theme Menu:
+    - Image (Select Image from Gallery)
+    - Preset (Color Theme)
+    - Custom (Use Inputs)
+    - Upload (Upload Image)

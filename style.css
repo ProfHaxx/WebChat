@@ -1,147 +1,386 @@
-/* Desktop PC, Notebook, Tablet */
+/*Style to make Hamburger Menu*/
+.fa {
+    display:inline-block;
+    font:normal normal normal 14px/1 FontAwesome;
+    font-size:inherit;
+    text-rendering:auto;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
 
-@media screen {
+.fa-bars:before{
+    content:"\f0c9";
+}
+/*End Style Hamburger Menu*/
+
+/*PC rules*/
+@media screen and (min-aspect-ratio: 1/1) {
     body {
-        background-image: linear-gradient(to right, rgba(20, 20, 160, 0), rgba(20, 20, 160, 1));
+        background: #AAA;
         font-size: 2vh;
     }
-    
-    /* Whole Navigation Bar*/
-    #nav {
-        font-size: inherit;
-        background-color: #5a5a5a;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        width: 100%;
-        height: 10vh;
-    }
-    
-    /* Home and Preferences*/
-    .navbtn, .dropbtn {
-        display: inline-block;
-        color: rgb(218, 204, 204);
-        text-align: center;
-        padding: 20px 20px;
-        text-decoration: none;
-        background-color: #4e4e4e;
-        border: none;
-        font-size: inherit;
-        height: inherit;
-    }
-
-    .dropbtn {
-        height: 10vh;
-        width: 10vw;
-    }
-    
-    /* Home when hovered*/
-    .navbtn:hover {
-        background-color: #787878;
-    }
-    
-    /* Dropdown Container */
-    .dropdown {
-        float: right;
-        font-size: inherit;
-    }
-    
-    /* Profile, Theme */
-    .dropdown-content {
-        margin-left: -7vw;
-        font-size: 2vh;
+    .mobilenav {
         display: none;
-        position: absolute;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
     }
-    
-    /* Hide, Show Mechanics*/
-    .dropbtn:hover .dropdown-content {
-        display: block;
-    }
-    
-    /* Change color on hover */
-    .dropdown:hover .dropbtn, .dropdownbtn:hover {
-        background-color: #787878;
-    }
-    
-    /* Drop Down Button: Profile, Theme*/
-    .dropdownbtn {
+    #nav {
+        /*Creates a full width Nav Bar, TODO: See minimum viewport width needed*/
         width: 100%;
-        background-color: #5a5a5a;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        border: none;
-        font-size: inherit;
+        /*Sets height of the Nav bar to 10% of the viewport*/
+        height: 10vh;
+        /*Gives the Nav Bar a background Color*/
+        background: #808080;
+        /*Sets a distance between Navigation panel and the main panel*/
+        margin-bottom: 5vh;
     }
     
-    /*Headline*/
-    .header {
-        font-size: 3vh;
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: bold;
-        margin: 25px 0px 50px 0px;
-        height: 10vh;
+    #nav > *, #nav > .dropdown > #prefbtn {
+        /*Align Navigation Items in one line. Rule partially overwritten by next one*/
+        display: inline-block;
+        /*Every Items inherits the height of the navbar*/
+        height: inherit;
+        /*Paint's every item*/
+        background: #606060;
+        /*Due to readability changes font color to white*/
+        color: white;
+        /*Removes Border*/
+        border: none;
+    }
+    
+    #prefbtn {
+        width: 100%;
+        padding: 0px 30px;
     }
 
-    /*The actual chat*/
-    .future {
-        margin-top: -7vh;
-        margin-left: 10px;
-        margin-bottom: 25px;
-        width: 85vw;
-        padding: 10px;
-        border-radius: 20px 0px;
-        border: 4px;
-        border-color: #5a5a5a;
-        background: #787878;
+    #homebtn {
+        padding: 0px 30px;
+    }
+    
+    #nav .dropdown {
+        /*Moves the whole dropdown Section to the right side*/
+        float: right;
+        /*Makes items appear directly below this*/
+        position: relative;
+    }
+    
+    .dropdown:hover > .dropdown-content {
+        /*Adds hover mechanics*/
+        display: block;
+    }
+    
+    .dropdown-content {
+        /*Dropdown Content hidden by default*/
+        display: none;
+        /*Sets absolute position > Dropdown Button would move otherwise*/
+        position: absolute;
+    }
+    
+    .dropdown-content > * {
+        width: 100%;
+        /*Displays Boxes as blocks*/
+        display: block;
+        /*Paint's every item*/
+        background: #606060;
+        /*Due to readability changes font color to white*/
+        color: white;
+        /*Removes Border*/
+        border: none;
+        /*Increases click area*/
+        padding: 10px 6px;
+        /*Moves items to the right container edge*/
+        float: right;
+        /*Decrease Shape*/
+        margin-left: -21px;
+    }
+
+    .main * {
+        font-size: 3vh;
+        margin: 10px;
+    }
+
+    .main .header {
+        font-size: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .main .future {
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0px 10px;
         height: 50vh;
         overflow-y: auto;
+        line-height: 1vh;
     }
 
-    /*Chat Input*/
-    .chatform {
-        padding-left: 10px;
-        position: relative;
-        padding-bottom: 40px;
+    .main > .chatform {
+        width: cal(100vw - 20px); /*Figure this out*/
         height: 7vh;
     }
-    
-    .chat_input {
-        font-size: inherit;
-        width: 65%;
-        height: inherit;
-        /*height: 30px;*/
-        display: inline-block;
-        background-color: #787878;
+
+    .main > .chatform > .chat_input {
+        background: grey;
+        color: white;
         border: none;
-        border-radius: 16px 0px 0px 16px;
-        padding-left: 16px;
+        border-radius: 5px 0px 0px 5px;
+        margin: 0px 0px 0px -1px;
+        padding: 0px 0px 0px 0.5vw;
+        width: 85vw;
+        height: inherit;
+        overflow-x: hidden;
     }
 
-    .sendbtn {
-        display: inline-block;
-        background-color: #787878;
-        color: #ffffff;
+    .main > .chatform > .sendbtn {
+        background: #707070;
+        color: white;
         border: none;
-        border-radius: 0px 16px 16px 0px;
+        border-radius: 0px 5px 5px 0px;
         height: inherit;
-        margin-left: -8px;
-        padding-right:10px;
+        width: 7vw;
+        margin: 0vw 0vw 0vw -1.5vw;
+        padding: 0vw 0.5vw 0vw 0vw;
+        text-align: center;
+    }
+
+    .main > .chatform > .sendbtn:hover {
+        background: #606060;
+    }
+
+    .main > #profileform {
+        width: 40vw;
+    }
+
+    .main > #profileform > #in_user, .main > #profileform > #in_name {
+        padding: 5px 10px;
+        display: block;
+        background: #808080;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: inherit;
+    }
+
+    .main > #profileform > .profilecfm {
+        padding: 10px;
+        display: block;
+        background: #707070;
+        color: white;
+        border: none;
+        border-radius: 20px;
+    }
+
+    .main > #profileform > .profilecfm:hover {
+        background: #606060;
+    }
+
+    .main > #themeform {
+        width: 40vw;
+    }
+
+    .main > #themeform > #in_background, 
+    .main > #themeform > #in_dark,
+    .main > #themeform > #in_light,
+    .main > #themeform > #in_font {
+        padding: 5px 10px;
+        display: block;
+        background: #808080;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: inherit;
+    }
+
+    .main > #themeform > .themecfm {
+        padding: 10px;
+        display: block;
+        background: #707070;
+        color: white;
+        border: none;
+        border-radius: 20px;
+    }
+
+    .main > #themeform > .themecfm:hover {
+        background: #606060;
+    }
+}
+
+/*Phone rules*/
+@media screen and (max-aspect-ratio: 1/1) {
+    body {
+        background: lightslategrey;
+    }
+
+    #nav {
+        display: none;
+    }
+
+    .mobilenav {
+        overflow: hidden;
+        background-color: #333;
+        position: relative;
+        margin-bottom: 4vh;
+    }
+
+    .mobilenav .dropdownlist #myLinks {
+        display: none;
+    }
+
+    .mobilenav a,
+    .mobilenav .dropdownlist a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+    }
+
+    .mobilenav .dropdownlist a.icon {
+        background: black;
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .mobilenav .dropdownlist a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .mobilenav .dropdownlist:hover #myLinks {
+        display: block;
+    }
+
+    .active {
+        background: #5598d6;
+        color: white;
+    }
+
+    .main * {
+        font-size: 1.5vh;
+        margin: 10px;
+    }
+
+    .main .header {
+        font-size: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .main .future {
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0px 10px;
+        height: 60vh;
+        overflow-y: auto;
+        line-height: 0.3vh;
+    }
+
+    .main > .chatform {
+        width: cal(100vw - 20px); /*Figure this out*/
+        height: 4vh;
+    }
+
+    .main > .chatform > .chat_input {
+        background: grey;
+        color: white;
+        border: none;
+        border-radius: 5px 0px 0px 5px;
+        margin: 0px 0px 0px -1px;
+        padding: 0px 0px 0px 0.5vw;
+        width: 80vw;
+        height: inherit;
+        overflow-x: hidden;
+    }
+
+    .main > .chatform > .sendbtn {
+        background: #707070;
+        color: white;
+        border: none;
+        border-radius: 0px 5px 5px 0px;
+        height: inherit;
+        width: 9vw;
+        margin: 0vw 0vw 0vw -1.5vw;
+        padding: 0vw 4vw 0vw 0vw;
+        text-align: center;
+    }
+
+    .main > .chatform > .sendbtn:hover {
+        background: #606060;
+    }
+
+    .main > #profileform {
+        width: 60vw;
+        font-size: 3vh;
+    }
+
+    .main > #profileform > #in_user, .main > #profileform > #in_name {
+        font-size: inherit;
+        padding: 5px 10px;
+        display: block;
+        background: #808080;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: inherit;
+    }
+
+    .main > #profileform > .profilecfm {
+        font-size: inherit;
+        padding: 10px;
+        display: block;
+        background: #707070;
+        color: white;
+        border: none;
+        border-radius: 20px;
+    }
+
+    .main > #profileform > .profilecfm:hover {
+        background: #606060;
+    }
+
+    .main > #themeform {
+        width: 60vw;
+        font-size: 3vh;;
+    }
+
+    .main > #themeform > #in_background, 
+    .main > #themeform > #in_dark,
+    .main > #themeform > #in_light,
+    .main > #themeform > #in_font {
+        padding: 5px 10px;
+        display: block;
+        background: #808080;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: inherit;
         font-size: inherit;
     }
-    
-    .sendbtn:hover {
-        background-color: #5a5a5a;
+
+    .main > #themeform > .themecfm {
+        padding: 10px;
+        display: block;
+        background: #707070;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: inherit;
     }
-    
-    .footer {
-        height: 5vh;
-        position: fixed;
-        bottom: 0;
+
+    .main > #themeform > .themecfm:hover {
+        background: #606060;
     }
+}
+
+.footer {
+    margin-left: -8px;
+    position: fixed;
+    bottom: 0;
+    background: #333;
+    color: white;
+    font-size: 1.5vh;
+    padding: 10px;
+    width: 100%;
 }

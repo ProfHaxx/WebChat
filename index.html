@@ -6,12 +6,11 @@
         <script src="/jquery/dist/jquery.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <link rel="stylesheet" type="text/css" href="./style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- TODO Add icons -->
         <link res="icon" href="./img/favicon.ico">
     </head>
 
-    <body onload="init()" id="body">
+    <body onload="init()">
         <!--Navigation-->
         <div id="nav">
             <button class="navbtn" id="homebtn">Home</button>
@@ -23,32 +22,47 @@
                 </div>
             </div>
         </div>
+        <div class="mobilenav">
+            <a href="javascript:nav('home')" class="active">Web Chat</a>
+            <div class="dropdownlist">
+                <div id="myLinks">
+                    <a href="javascript:nav('profile')">Profile</a>
+                    <a href="javascript:nav('theme')">Theme</a>
+                </div>
+                <a class="icon" onclick="dropMenu()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
 
-        <!--Headline-->
-        <div class="header" id="header"></div>
+        <div class="main">
+            <!--Headline-->
+            <div class="header" id="header"></div>
 
-        <!--Profile Form-->
-        <form id="profileform">
-            <input id="in_user" type="text" placeholder="Displayname">
-            <input id="in_name" type="text" placeholder="Username">
-            <input class="themecfm" type="submit" value="Apply">
-        </form>
+            <!--Profile Form-->
+            <form id="profileform">
+                <input id="in_user" type="text" placeholder="Displayname">
+                <input id="in_name" type="text" placeholder="Username">
+                <input class="profilecfm" type="submit" value="OK">
+            </form>
 
-        <!--Theme Form-->
-        <form id="themeform">
-            <input id="in_background" type="text" placeholder="Background Color">
-            <input id="in_dark" type="text" placeholder="Dark Color">
-            <input id="in_light" type="text" placeholder="Light Color">
-            <input id="in_font" type="text" placeholder="Font Color">
-            <input class="themecfm" type="submit" value="Apply">
-        </form>
+            <!--Theme Form-->
+            <form id="themeform">
+                <input id="in_background" type="text" placeholder="Background Color">
+                <input id="in_dark" type="text" placeholder="Dark Color">
+                <input id="in_light" type="text" placeholder="Light Color">
+                <input id="in_font" type="text" placeholder="Font Color">
+                <input class="themecfm" type="submit" value="OK">
+            </form>
 
-        <div id="future" class="future"></div>
+            <div id="future" class="future"></div>
 
-        <form id="chatform" class="chatform">
-            <input class="chat_input" id="chatinput" type="text" placeholder="[Your message]" autocomplete="off">
-            <input class="sendbtn" type="submit" value="Send">
-        </form>
+            <form id="chatform" class="chatform">
+                <input class="chat_input" id="chatinput" type="text" placeholder="[Your message]" autocomplete="off">
+                <input class="sendbtn" type="submit" value="Send">
+            </form>
+        </div>
+
         <div class="footer"></div>
         <script src="./client.js"></script>
     </body>

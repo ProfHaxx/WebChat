@@ -1,6 +1,32 @@
 var socket = io.connect();
 
-$('.footer').html("v1.6.6");
+var mobile;
+
+if(document.documentElement.clientWidth > document.documentElement.clientHeight) {
+    mobile = false;
+    $('.footer').html("v1.6.7 [Desktop]");
+} else {
+    mobile = true;
+    $('.footer').html("v1.6.7 [Mobile]");
+}
+
+//Mobile Navigation Functions
+function nav(str) {
+    $("#" + str + "btn").click();
+    if(str != 'home') {
+        dropMenu();
+    }
+}
+
+var menuToggle = false;
+function dropMenu() {
+    if(menuToggle) {
+        $("#myLinks").css("display", "none");
+    } else {
+        $("#myLinks").css("display", "block");
+    }
+    menuToggle = !menuToggle;
+}
 
 //User Data
 var user_data = [];
@@ -105,7 +131,10 @@ $('#profileform').submit(function (e) {
 
 //Submit Theme
 $('#themeform').submit(function(e) {
-
+    rebakeCookies(
+        ["background", "navdark", "navlight", "fontcolor"], 
+        [$('#in_background').val(), $('#in_dark').val(), $('#in_light').val(), $('#in_font').val()]
+    );
 });
 
 function rebakeCookies(cnames, cvalues) { //Let's hope that cnames and cvalues are Arrays
@@ -127,6 +156,9 @@ function rebakeCookies(cnames, cvalues) { //Let's hope that cnames and cvalues a
     if(cnames.includes("fontcolor")) {
         setCookie("fontcolor", cvalues[cnames.indexOf("fontcolor")], 365);
     }
+
+    writeSave(getCookie("username"), getCookie("name"), getCookie("background"), 
+    getCookie("navdark"), getCookie("navlight"), getCookie("fontcolor"));
 }
 
 function setCookie(cname, cvalue, exdays) {
