@@ -14,7 +14,7 @@
 /*End Style Hamburger Menu*/
 
 /*PC rules*/
-@media screen and (min-aspect-ratio: 1/1) {
+@media screen and (min-aspect-ratio: 3/2) {
     body {
         background: #AAA;
         font-size: 2vh;
@@ -114,8 +114,9 @@
     }
 
     .main > .chatform {
-        width: cal(100vw - 20px); /*Figure this out*/
+        width: 100%;
         height: 7vh;
+        overflow: hidden;
     }
 
     .main > .chatform > .chat_input {
@@ -204,8 +205,10 @@
     }
 }
 
+/*410h*/
+
 /*Phone rules*/
-@media screen and (max-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 3/2) {
     body {
         background: lightslategrey;
     }
@@ -274,7 +277,7 @@
         padding: 0px 10px;
         height: 60vh;
         overflow-y: auto;
-        line-height: 0.3vh;
+        line-height: 2vh;
     }
 
     .main > .chatform {
