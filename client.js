@@ -12,6 +12,7 @@ if(document.documentElement.clientWidth > document.documentElement.clientHeight)
 
 //Mobile Navigation Functions
 function nav(str) {
+    console.log("Navigates to " + str);
     $("#" + str + "btn").click();
     if(str != 'home') {
         dropMenu();
@@ -20,6 +21,7 @@ function nav(str) {
 
 var menuToggle = false;
 function dropMenu() {
+    console.log("Menu Toggle activated");
     if(menuToggle) {
         $("#myLinks").css("display", "none");
     } else {

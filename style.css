@@ -239,6 +239,9 @@
     }
 
     .mobilenav .dropdownlist a.icon {
+        height: 8vh;
+        width: 10vw;
+        text-align: center;
         background: black;
         display: block;
         position: absolute;
