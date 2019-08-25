@@ -24,8 +24,10 @@ function dropMenu() {
     console.log("Menu Toggle activated");
     if(menuToggle) {
         $("#myLinks").css("display", "none");
+        $(".icon").css("bottom", "0%");
     } else {
         $("#myLinks").css("display", "block");
+        $(".icon").css("bottom", "44%");
     }
     menuToggle = !menuToggle;
 }
