@@ -57,12 +57,21 @@ socket.on('broad', function (data, scroll) {
     }
 });
 
+//On User Amount Change (User Online Display)
+socket.on('useramountchange', function (number) {
+    if(mobile) {
+        $('.active').html("Web Chat (" + number + ")");
+    } else {
+        $('#homebtn').html("Home (" + number + ")");
+    }
+});
+
 function scrolldown() {
     document.getElementById("future").scrollTop += 10000;
 }
 
 //On Message
-socket.emit('messages', getCookie("username") + " " + "joined the chat!");
+socket.emit('messages', "Somebody joined the chat!");
 
 //Send Message
 $('#chatform').submit(function (e) {
@@ -92,6 +101,7 @@ $('#homebtn').on('click', function(data) {
     $("#chatform").css("display", "inline");
     $('#profileform').css("display", "none");
     $('#themeform').css("display", "none");
+    $('#signup').css("display", "none");
 });
 
 //On Profile Click
@@ -116,20 +126,41 @@ $('#themebtn').on('click', function(data) {
 
 //Onload Function
 function init() {
-    $('#homebtn').click();
+    socket.emit('storage-request');
+    if (user_data.length < 5) {
+        $("#header").html("Sign Up");
+        $("#future").css("display", "none");
+        $("#chatform").css("display", "none");
+        $("#profileform").css("display", "none");
+        $("#themeform").css("display", "none");
+        $("#signup").css("display", "block");
+        $(".signupcfm").attr("value", "OK");
+    } else {
+        $('#homebtn').click();
+    }
 }
 
 //Submit Profile
 $('#profileform').submit(function (e) {
-    rebakeCookies(["username", "name"], [$('#in_user').val(), $('#in_name').val()]);
+    socket.emit('read', $('#in_name').val());
 });
 
 //Submit Theme
 $('#themeform').submit(function(e) {
-    rebakeCookies(
-        ["background", "navdark", "navlight", "fontcolor"], 
-        [$('#in_background').val(), $('#in_dark').val(), $('#in_light').val(), $('#in_font').val()]
+    
+});
+
+//Submit Signup
+$('#signup').submit(function(e) {
+    writeSave(
+        $('#first_username').val(),
+        $('#first_name').val(),
+        [$('#first_color').val(), $('#second_color').val(), $('#third_color').val()],
+        1,
+        []
     );
+    updateFrontEnd();
+    $('#homebtn').click();
 });
 
 function clearBoxes() {
@@ -141,10 +172,27 @@ function clearBoxes() {
     }
 }
 
+
+function updateFrontEnd() {
+    if(!mobile) {
+        $("body").css("background-image", "url(./img/bg/Back_" + user_data[3] + ".jpg)");
+    }
+
+}
 /*
     Create Profiles and allow switching between them.
 */
 
+socket.on('debug-response', function(data) {
+    console.log(data);
+});
+
+socket.on('storage-response', function(data) {
+    user_data = data;
+});
+
 function writeSave(username, name, colorset, backgroundID, settings) {
     socket.emit('write', username, name, colorset, backgroundID, settings);
+    socket.emit('storage-refresh', [username, name, colorset, backgroundID, settings]);
+    socket.emit('storage-request');
 }

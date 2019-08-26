@@ -13,7 +13,7 @@
     <body onload="init()">
         <!--Navigation-->
         <div id="nav">
-            <button class="navbtn" id="homebtn">Home</button>
+            <button class="navbtn" id="homebtn">Home (0)</button>
             <div class="dropdown">
                 <button class="dropbtn" id="prefbtn"><i class="fa fa-bars"></i></button>
                 <div class="dropdown-content">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="mobilenav">
-            <a href="javascript:nav('home')" class="active">Web Chat</a>
+            <a href="javascript:nav('home')" class="active">Web Chat (0)</a>
             <div class="dropdownlist">
                 <div id="myLinks">
                     <a href="javascript:nav('profile')" id="profilelnk">Profile</a>
@@ -41,20 +41,20 @@
 
             <!--SignUp Form-->
             <form id="signup">
-                <input id="first_username" class="forminput" type="text" placeholder="Username">
-                <input id="first_name" class="forminput" type="text" placeholder="Name">
+                <input id="first_username" class="forminput" type="text" placeholder="Displayname">
+                <input id="first_name" class="forminput" type="text" placeholder="Username (Permanent!)">
                 <input id="first_color" class="forminput" type="text" placeholder="Light Color">
-                <input id="second_color" class="forminput" type="text" placeholder="Font Color">
-                <input id="third_color" class="forminput" type="text" placeholder="Font Color">
-                <input id="third_color" class="forminput" type="text" placeholder="Font Color">
-                <input class="themecfm" type="submit" value="OK">
+                <input id="second_color" class="forminput" type="text" placeholder="Medium Color">
+                <input id="third_color" class="forminput" type="text" placeholder="Dark Color">
+                <input id="first_background" class="forminput" type="text" placeholder="Background (1-9)">
+                <input class="signupcfm" id="formcfm" type="submit" value="OK">
             </form>
 
             <!--Profile Form-->
             <form id="profileform">
                 <input id="in_user" class="forminput" type="text" placeholder="Displayname">
                 <input id="in_name" class="forminput" type="text" placeholder="Username">
-                <input class="profilecfm" type="submit" value="OK">
+                <input class="profilecfm" id="formcfm" type="submit" value="OK">
             </form>
 
             <!--Theme Form-->
@@ -63,7 +63,7 @@
                 <input id="in_dark" class="forminput" type="text" placeholder="Dark Color">
                 <input id="in_light" class="forminput" type="text" placeholder="Light Color">
                 <input id="in_font" class="forminput" type="text" placeholder="Font Color">
-                <input class="themecfm" type="submit" value="OK">
+                <input class="themecfm" id="formcfm" type="submit" value="OK">
             </form>
 
             <div id="future" class="future"></div>

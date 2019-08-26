@@ -4,8 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 class Chat {
-    participants = [];
-    messages = [];
+    //TODO: Participants Array, Messages Array
 }
 
 class Profile {
@@ -45,7 +44,29 @@ class Setting {
     }
 }
 
+class Storage {
+    constructor(ip) {
+        this.ip = ip;
+        this.store = [];
+    }
+
+    addToStore(element) {
+        this.store.push(element);
+    }
+
+    removeFromStore(element) {
+        this.store = removeFromArray(this.store, element);
+    }
+    
+    removeAll() {
+        this.store = [];
+    }
+}
+
+var storages = [];
+var chats = [];
 var profiles = [];
+//TO REMOVE
 var autoscroll = false;
 
 //Initialzing used directories
@@ -62,10 +83,12 @@ app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/style.css');
 });
 
-//Fetching Stylesheets
+//Fetching Favicon
 app.get('/', function(req, res,next) {
-    res.sendFile(__dirname + '/img/style.css');
+    res.sendFile(__dirname + '/img/favicon.ico');
 });
+
+app.use(express.static(__dirname + '/img/bg/'));
 
 //TODO: List of all connected people
 var connected = [];
@@ -76,11 +99,19 @@ io.on('connection', function(client) {
 
     //On Join Event
     client.on('join', function(data) {
-        console.log(client.handshake.address + " just joined");
+        console.log(getClientIP(client) + " just joined");
+        if(!hasStorage(getClientIP(client))) {
+            storages.push(new Storage(getClientIP(client)));
+        }
+        connected.push(getClientIP(client));
+        client.emit('useramountchange', connected.length);
     });
 
+    //On Disconnect
     client.on('disconnect', function() {
-        console.log(client.handshake.address + " just disconnected");
+        console.log(getClientIP(client) + " just disconnected");
+        connected = removeFromArray(connected, getClientIP(client));
+        client.emit('useramountchange', connected.length);
     });
 
     //Message Received from Client
@@ -88,12 +119,12 @@ io.on('connection', function(client) {
         var msg = filterMessage(data);
         console.log(msg.type);
         if(msg.command == null && msg.target == null && msg.text != "") { //Broadcast
-            client.emit('broad', data, autoscroll);
-            client.broadcast.emit('broad', data, autoscroll);
+            client.emit('broad', data, false); //Change false to autoscroll property
+            client.broadcast.emit('broad', data, false); //Change false to autoscroll property
         } else if(msg.command != null) { //Commands
             switch(msg.command) {
                 case "autoscroll":
-                    autoscroll = !autoscroll;
+                    autoscroll = !autoscroll; //Change false to autoscroll property
                     break;
                 default:
                     if(msg.param != null) {
@@ -111,12 +142,27 @@ io.on('connection', function(client) {
     //Write Profile
     client.on('write', function(username, name, colorset, backgroundID, settings) {
         addProfile(username, name, colorset, backgroundID, settings);
+        client.emit('senddata', username, name, colorset, backgroundID, settings);
     });
 
-    //Read Profile [Massive TODO]
+    //Read Profile
     client.on('read', function(name) {
         var profile = getProfile(name);
         client.emit('senddata', profile.username, profile.name, profile.colorset, profile.backgroundID, profile.settings);
+    });
+
+    //Access Storage
+    client.on('storage-request', function(){
+        client.emit('storage-response', getStorage(getClientIP(client)).store);
+    });
+
+    //Update Storage
+    client.on('storage-refresh', function(elements){
+        getStorage(getClientIP(client)).store = elements;
+    });
+
+    client.on('debug-request', function() {
+        client.emit('debug-response', [getClientIP(client), storages, client]);
     });
 });
 
@@ -183,4 +229,41 @@ function addProfile(username, name, colorset, backgroundID, settings) {
 
 function modifyProfile(profileID, newProfile) {
     profiles[profileID] = newProfile;
+}
+
+function getClientIP(client) {
+    return (client.handshake.address).substring(7);
+}
+
+function removeFromArray(array, item) {
+    var i = 0;
+    var arr = [];
+    array.forEach(element => {
+        if(element != item) {
+            arr[i] = element;
+            i++;
+        }
+    });
+    return arr;
+}
+
+function hasStorage(ip) {
+    var out;
+    storages.forEach(storage => {
+        if(storage.ip == ip) {
+            out = storage;
+        }
+    });
+    return (out != null && out != undefined);
+}
+
+function getStorage(ip) {
+    var out;
+    console.log(storages.length);
+    storages.forEach(storage => {
+        if(storage.ip == ip) {
+            out = storage;
+        }
+    });
+    return out;
 }

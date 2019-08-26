@@ -17,7 +17,10 @@
 /*PC rules*/
 @media screen and (min-aspect-ratio: 3/2) {
     body {
-        background: #AAA;
+        background-image: url(./img/bg/Back_1.jpg);
+        background-repeat: no-repeat;
+        background-clip: padding-box;
+        background-size: 100%;
         font-size: 2vh;
     }
     .mobilenav {
@@ -152,25 +155,6 @@
         width: 40vw;
     }
 
-    .main > #profileform > .forminput {
-        padding: 5px 10px;
-        display: block;
-        background: #808080;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        width: inherit;
-    }
-
-    .main > #profileform > .profilecfm {
-        padding: 10px;
-        display: block;
-        background: #707070;
-        color: white;
-        border: none;
-        border-radius: 20px;
-    }
-
     .main > #profileform > .profilecfm:hover {
         background: #606060;
     }
@@ -179,31 +163,10 @@
         width: 40vw;
     }
 
-    .main > #themeform > .forminput {
-        padding: 5px 10px;
-        display: block;
-        background: #808080;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        width: inherit;
-    }
-
-    .main > #themeform > .themecfm {
-        padding: 10px;
-        display: block;
-        background: #707070;
-        color: white;
-        border: none;
-        border-radius: 20px;
-    }
-
     .main > #themeform > .themecfm:hover {
         background: #606060;
     }
 }
-
-/*410h*/
 
 /*Phone rules*/
 @media screen and (max-aspect-ratio: 3/2) {
@@ -322,27 +285,6 @@
         font-size: 3vh;
     }
 
-    .main > #profileform > .forminput {
-        font-size: inherit;
-        padding: 5px 10px;
-        display: block;
-        background: #808080;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        width: inherit;
-    }
-
-    .main>#profileform>.profilecfm {
-        font-size: inherit;
-        padding: 10px;
-        display: block;
-        background: #707070;
-        color: white;
-        border: none;
-        border-radius: 20px;
-    }
-
     .main>#profileform>.profilecfm:hover {
         background: #606060;
     }
@@ -350,28 +292,6 @@
     .main>#themeform {
         width: 60vw;
         font-size: 3vh;
-        ;
-    }
-
-    .main > #themeform > .forminput {
-        padding: 5px 10px;
-        display: block;
-        background: #808080;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        width: inherit;
-        font-size: inherit;
-    }
-
-    .main>#themeform>.themecfm {
-        padding: 10px;
-        display: block;
-        background: #707070;
-        color: white;
-        border: none;
-        border-radius: 20px;
-        font-size: inherit;
     }
 
     .main>#themeform>.themecfm:hover {
@@ -388,4 +308,27 @@
     font-size: 1.5vh;
     padding: 10px;
     width: 100%;
+}
+
+.forminput {
+    padding: 5px 10px;
+    display: block;
+    background: #808080;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: inherit;
+}
+
+#formcfm {
+    padding: 10px;
+    display: block;
+    background: #707070;
+    color: white;
+    border: none;
+    border-radius: 20px;
+}
+
+#signup {
+    display: none;
 }
